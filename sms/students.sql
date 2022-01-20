@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `students`
+-- Database: `studentdbms`
 --
 
 -- --------------------------------------------------------
@@ -38,7 +38,7 @@ CREATE TABLE `attendence` (
 --
 
 INSERT INTO `attendence` (`aid`, `rollno`, `attendance`) VALUES
-(6, '1ve17cs012', 98);
+(1, '1bycs154', 98);
 
 -- --------------------------------------------------------
 
@@ -56,11 +56,11 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`cid`, `branch`) VALUES
-(2, 'Information Science Engineering(ISE)'),
-(3, 'Electronic and Communication Engineering(ECE)'),
-(4, 'Electrical & Electronic Engineering(EEE)'),
-(5, 'Civil Engineering(CIV)'),
-(7, 'Computer Science Engineering(CSE)');
+(1, 'Information Science Engineering(ISE)'),
+(2, 'Electronic and Communication Engineering(ECE)'),
+(3, 'Electrical & Electronic Engineering(EEE)'),
+(4, 'Civil Engineering(CIV)'),
+(5, 'Computer Science Engineering(CSE)');
 
 -- --------------------------------------------------------
 
@@ -113,7 +113,7 @@ CREATE TABLE `test` (
 --
 
 INSERT INTO `test` (`id`, `name`, `email`) VALUES
-(1, 'aaa', 'aaa@gmail.com');
+(1, 'test', 'testing@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -133,9 +133,9 @@ CREATE TABLE `trig` (
 --
 
 INSERT INTO `trig` (`tid`, `rollno`, `action`, `timestamp`) VALUES
-(7, '1ve17cs012', 'STUDENT INSERTED', '2021-01-10 19:19:56'),
-(8, '1ve17cs012', 'STUDENT UPDATED', '2021-01-10 19:20:31'),
-(9, '1ve17cs012', 'STUDENT DELETED', '2021-01-10 19:21:23');
+(7, '1by19cs151', 'STUDENT INSERTED', '2022-01-15 19:19:56'),
+(8, '1by19cs150', 'STUDENT UPDATED', '2022-01-15 19:20:31'),
+(9, '1by19cs154', 'STUDENT DELETED', '2022-01-15 19:21:23');
 
 -- --------------------------------------------------------
 
@@ -155,7 +155,7 @@ CREATE TABLE `user` (
 --
 
 INSERT INTO `user` (`id`, `username`, `email`, `password`) VALUES
-(4, 'anees', 'anees@gmail.com', 'pbkdf2:sha256:150000$1CSLss89$ef995dfc48121768b2070bfbe7a568871cd56fac85ac7c95a1e645c8806146e9');
+(4, 'Sohan', 'sohan@gmail.com', 'pbkdf2:sha256:150000$1CSLss89$ef995dfc48121768b2070bfbe7a568871cd56fac85ac7c95a1e645c8806146e9');
 
 --
 -- Indexes for dumped tables
