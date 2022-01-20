@@ -6,7 +6,7 @@ Triggers
 
 
 {% block body %}
- <h3 class="text-center"><span>Student Triggers Records</span> </h3>
+ <h3 class="text-center"  style="margin-top: 100px;"><span>Student Triggers Records</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -22,9 +22,9 @@ Triggers
   {% endwith %}
 <br>
 
-<div class="container mt-4">
-<table class="table">
-  <thead class="thead-light">
+<div class="container mt-4 ">
+<table class="table table-borderless">
+  <thead class="thead-light" style="background-color: #428af5; color: white;">
     <tr>
       <th scope="col">TID</th>
       <th scope="col">ROLL NUMBER</th>

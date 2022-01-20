@@ -94,7 +94,7 @@ def department():
         dep=Department(branch=dept)
         db.session.add(dep)
         db.session.commit()
-        flash("Department Addes","success")
+        flash("Department Added Successfully","success")
     return render_template('department.html')
 
 @app.route('/addattendance',methods=['POST','GET'])
@@ -126,7 +126,7 @@ def search():
 @login_required
 def delete(id):
     db.engine.execute(f"DELETE FROM `student` WHERE `student`.`id`={id}")
-    flash("Slot Deleted Successful","danger")
+    flash("Student details deleted Successfully","danger")
     return redirect('/studentdetails')
 
 
@@ -145,7 +145,7 @@ def edit(id):
         num=request.form.get('num')
         address=request.form.get('address')
         query=db.engine.execute(f"UPDATE `student` SET `rollno`='{rollno}',`sname`='{sname}',`sem`='{sem}',`gender`='{gender}',`branch`='{branch}',`email`='{email}',`number`='{num}',`address`='{address}'")
-        flash("Slot is Updates","success")
+        flash("Student details Updated Successfully","success")
         return redirect('/studentdetails')
     
     return render_template('edit.html',posts=posts,dept=dept)
@@ -218,7 +218,7 @@ def addstudent():
         query=db.engine.execute(f"INSERT INTO `student` (`rollno`,`sname`,`sem`,`gender`,`branch`,`email`,`number`,`address`) VALUES ('{rollno}','{sname}','{sem}','{gender}','{branch}','{email}','{num}','{address}')")
     
 
-        flash("Booking Confirmed","info")
+        flash("Student Details Added","info")
 
 
     return render_template('student.html',dept=dept)

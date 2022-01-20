@@ -10,11 +10,11 @@
   <meta content="" name="description">
   <meta content="" name="keywords">
 
-{% block style %}
-{% endblock style %}
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  
+  {% block style %}
+  {% endblock style %}
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">  
 <!-- Vendor CSS Files -->
   <link href="static/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="static/assets/vendor/venobox/venobox.css" rel="stylesheet">
@@ -30,29 +30,25 @@
 
 <body>
 
-  <!-- ======= Header ======= -->
+
   <header id="header">
     <div class="container">
-
-      <div id="logo" class="pull-left">
-
-        <a href="/" class="scrollto">SMS PORTAL</a>
+      <div id="logo" class="pull-left mt-2">
+        <a href="/" class="scrollto" style="font-weight: bold;">SMS PORTAL</a>
       </div>
-
-      
     </div>
-  </header><!-- End Header -->
+  </header>
 
   <!-- ======= Intro Section ======= -->
   <section id="intro">
     <div class="intro-container" data-aos="zoom-in" data-aos-delay="100">
     {% block content %}
  
-{% endblock content %}
+    {% endblock content %}
     </div>
   </section><!-- End Intro Section -->
 
-<div class="main">
+  <div class="main">
 
 
 

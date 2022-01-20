@@ -3,7 +3,7 @@
 login
 {% endblock title %}
 {% block content %}
- <h1 class="mb-4 pb-0"><span>Login</span> </h1>
+ <h1 class="mb-2 pb-0"><span>Login</span> </h1>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -30,10 +30,9 @@ login
     <input type="password" class="form-control" id="exampleInputPassword1" name="password" required>
   </div>
 <br>
-  <button type="submit" class="form-control bg-danger text-white">Login</button>
-   <p class="mb-2 pb-0">New User?</p>
-    
-      <a href="/signup" class="about-btn scrollto">Signup</a>
+    <button type="submit" class="form-control text-white" style="background-color: #428af5; border: none;">Login</button>
+    <p class="mb-2 mt-4 pb-0">New User?</p>
+    <a href="/signup" class="about-btn scrollto">Signup</a>
 </form>
      
 {% endblock content %}

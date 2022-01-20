@@ -56,12 +56,11 @@ CREATE TABLE `department` (
 --
 
 INSERT INTO `department` (`cid`, `branch`) VALUES
-(2, 'Information Science'),
-(3, 'Electronic and Communication'),
-(4, 'Electrical & Electronic'),
-(5, 'Civil '),
-(7, 'computer science'),
-(8, 'IOT');
+(2, 'Information Science Engineering(ISE)'),
+(3, 'Electronic and Communication Engineering(ECE)'),
+(4, 'Electrical & Electronic Engineering(EEE)'),
+(5, 'Civil Engineering(CIV)'),
+(7, 'Computer Science Engineering(CSE)');
 
 -- --------------------------------------------------------
 
