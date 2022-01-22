@@ -18,137 +18,135 @@ login_manager.login_view='login'
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return Vendor.query.get(int(user_id))
 
 
-
-app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/studentdbms'
+#db.ForeignKey('request.id')
+app.config['SQLALCHEMY_DATABASE_URI']='mysql://root:@localhost/petdb'
 db=SQLAlchemy(app)
 
-# here we will create db models that is tables
-class Test(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    name=db.Column(db.String(100))
-    email=db.Column(db.String(100))
+class Breed(db.Model):
+    __tablename__ = 'breed'
+    bid=db.Column(db.Integer,primary_key=True)
+    breed_name=db.Column(db.String(100))
 
-class Department(db.Model):
-    cid=db.Column(db.Integer,primary_key=True)
-    branch=db.Column(db.String(100))
+class Pet(db.Model):
+    __tablename__ = 'pet'
+    pid=db.Column(db.Integer,primary_key=True)
+    pet_name=db.Column(db.String(100))
+    bid=db.Column(db.Integer, db.ForeignKey('breed.bid'))
+    gender=db.Column(db.String())
+    age=db.Column(db.Integer())
+    height=db.Column(db.Integer())
+    weight=db.Column(db.Integer())
+    description=db.Column(db.String())
 
-class Attendence(db.Model):
-    aid=db.Column(db.Integer,primary_key=True)
-    rollno=db.Column(db.String(100))
-    attendance=db.Column(db.Integer())
 
-class Trig(db.Model):
-    tid=db.Column(db.Integer,primary_key=True)
-    rollno=db.Column(db.String(100))
+class Records(db.Model):
+    __tablename__ = 'records'
+    rid=db.Column(db.Integer,primary_key=True)
+    pid=db.Column(db.String(100),db.ForeignKey('pet.pid'))
     action=db.Column(db.String(100))
     timestamp=db.Column(db.String(100))
 
 
-class User(UserMixin,db.Model):
+class Vendor(UserMixin,db.Model):
+    __tablename__ = 'vendor'
     id=db.Column(db.Integer,primary_key=True)
     username=db.Column(db.String(50))
     email=db.Column(db.String(50),unique=True)
     password=db.Column(db.String(1000))
 
-
-
-
-
-class Student(db.Model):
-    id=db.Column(db.Integer,primary_key=True)
-    rollno=db.Column(db.String(50))
-    sname=db.Column(db.String(50))
-    sem=db.Column(db.Integer)
-    gender=db.Column(db.String(50))
-    branch=db.Column(db.String(50))
-    email=db.Column(db.String(50))
-    number=db.Column(db.String(12))
-    address=db.Column(db.String(100))
-    
+class Vaccination(db.Model):
+    __tablename__ = 'vaccination'
+    vid = db.Column(db.Integer,primary_key=True)
+    pid = db.Column(db.Integer,db.ForeignKey('pet.pid'))
+    vaccine_date=db.Column(db.String(100))
 
 @app.route('/')
 def index(): 
     return render_template('index.html')
 
-@app.route('/studentdetails')
-def studentdetails():
-    query=db.engine.execute(f"SELECT * FROM `student`") 
-    return render_template('studentdetails.html',query=query)
+@app.route('/petdetails')
+def petdetails():
+    query=db.engine.execute(f"SELECT * FROM `pet`,`breed` WHERE pet.bid = breed.bid") 
+    return render_template('petdetails.html',query=query)
 
-@app.route('/triggers')
+@app.route('/records')
 def triggers():
-    query=db.engine.execute(f"SELECT * FROM `trig`") 
-    return render_template('triggers.html',query=query)
+    query=db.engine.execute(f"SELECT * FROM `records`") 
+    return render_template('records.html',query=query)
 
-@app.route('/department',methods=['POST','GET'])
-def department():
+@app.route('/breed',methods=['POST','GET'])
+def breed():
     if request.method=="POST":
-        dept=request.form.get('dept')
-        query=Department.query.filter_by(branch=dept).first()
+        bname=request.form.get('breed_name')
+        query=Breed.query.filter_by(breed_name=bname).first()
         if query:
-            flash("Department Already Exist","warning")
-            return redirect('/department')
-        dep=Department(branch=dept)
-        db.session.add(dep)
+            flash("Dog Breed Already Exist","warning")
+            return redirect('/breed')
+        breed_=Breed(breed_name=bname)
+        db.session.add(breed_)
         db.session.commit()
-        flash("Department Added Successfully","success")
-    return render_template('department.html')
+        flash("Dog breed Added Successfully","success")
+    return render_template('breed.html')
 
-@app.route('/addattendance',methods=['POST','GET'])
-def addattendance():
-    query=db.engine.execute(f"SELECT * FROM `student`") 
+@app.route('/addvaccine',methods=['POST','GET'])
+def addvaccine():
+    query=db.engine.execute(f"SELECT * FROM `pet`") 
     if request.method=="POST":
-        rollno=request.form.get('rollno')
-        attend=request.form.get('attend')
-        print(attend,rollno)
-        atte=Attendence(rollno=rollno,attendance=attend)
-        db.session.add(atte)
-        db.session.commit()
-        flash("Attendance added","warning")
+        petid=request.form.get('pid')
+        vaccinedate=request.form.get('vaccine_date')
+        petquery=Vaccination.query.filter_by(pid=petid).first()
+        if petquery:
+            flash("Dog has been vaccinated and new date updated ","info")
+            query1=db.engine.execute(f"UPDATE `vaccination` SET `vaccine_date`='{vaccinedate}' WHERE `pid` = {petid}")
+            db.session.commit()
+        else:
+            vaccinate=Vaccination(pid=petid,vaccine_date=vaccinedate)
+            db.session.add(vaccinate)
+            db.session.commit()
+            flash("Last Vaccine Date Added","warning")
 
         
-    return render_template('attendance.html',query=query)
+    return render_template('vaccine.html',query=query)
 
 @app.route('/search',methods=['POST','GET'])
 def search():
     if request.method=="POST":
-        rollno=request.form.get('roll')
-        bio=Student.query.filter_by(rollno=rollno).first()
-        attend=Attendence.query.filter_by(rollno=rollno).first()
-        return render_template('search.html',bio=bio,attend=attend)
+        petid=request.form.get('pid')
+        bio=Pet.query.filter_by(pid=petid).first()
+        vaccine=Vaccination.query.filter_by(pid=petid).first()
+        return render_template('search.html',bio=bio,vaccine=vaccine)
         
     return render_template('search.html')
 
 @app.route("/delete/<string:id>",methods=['POST','GET'])
 @login_required
 def delete(id):
-    db.engine.execute(f"DELETE FROM `student` WHERE `student`.`id`={id}")
-    flash("Student details deleted Successfully","danger")
-    return redirect('/studentdetails')
+    db.engine.execute(f"DELETE FROM `pet` WHERE `pet`.`pid`={id}")
+    flash("Pet details deleted Successfully","danger")
+    return redirect('/petdetails')
 
 
 @app.route("/edit/<string:id>",methods=['POST','GET'])
 @login_required
 def edit(id):
-    dept=db.engine.execute("SELECT * FROM `department`")
-    posts=Student.query.filter_by(id=id).first()
+    breed=db.engine.execute("SELECT * FROM `breed`")
+    posts=Pet.query.filter_by(pid=id).first()
     if request.method=="POST":
-        rollno=request.form.get('rollno')
-        sname=request.form.get('sname')
-        sem=request.form.get('sem')
+        pet_name=request.form.get('pet_name')
         gender=request.form.get('gender')
-        branch=request.form.get('branch')
-        email=request.form.get('email')
-        num=request.form.get('num')
-        address=request.form.get('address')
-        query=db.engine.execute(f"UPDATE `student` SET `rollno`='{rollno}',`sname`='{sname}',`sem`='{sem}',`gender`='{gender}',`branch`='{branch}',`email`='{email}',`number`='{num}',`address`='{address}'")
-        flash("Student details Updated Successfully","success")
-        return redirect('/studentdetails')
+        age=request.form.get('age')
+        weight=request.form.get('weight')
+        height=request.form.get('height')
+        description=request.form.get('description')
+        bid=request.form.get('breed')
+        query=db.engine.execute(f"UPDATE `pet` SET `pet_name`='{pet_name}',`bid`={bid},`gender`='{gender}',`age`='{age}',`weight`='{weight}',`height`='{height}',`description`='{description}' where `pid`={id}")
+        flash("Pet details Updated Successfully","success")
+        return redirect('/petdetails')
     
-    return render_template('edit.html',posts=posts,dept=dept)
+    return render_template('edit.html',posts=posts,breed=breed)
 
 
 @app.route('/signup',methods=['POST','GET'])
@@ -157,18 +155,13 @@ def signup():
         username=request.form.get('username')
         email=request.form.get('email')
         password=request.form.get('password')
-        user=User.query.filter_by(email=email).first()
+        user=Vendor.query.filter_by(email=email).first()
         if user:
             flash("Email Already Exist","warning")
             return render_template('/signup.html')
         encpassword=generate_password_hash(password)
 
-        new_user=db.engine.execute(f"INSERT INTO `user` (`username`,`email`,`password`) VALUES ('{username}','{email}','{encpassword}')")
-
-        # this is method to save data in db
-        # newuser=User(username=username,email=email,password=encpassword)
-        # db.session.add(newuser)
-        # db.session.commit()
+        new_user=db.engine.execute(f"INSERT INTO `vendor` (`username`,`email`,`password`) VALUES ('{username}','{email}','{encpassword}')")
         flash("Signup Succes Please Login","success")
         return render_template('login.html')
 
@@ -181,7 +174,7 @@ def login():
     if request.method == "POST":
         email=request.form.get('email')
         password=request.form.get('password')
-        user=User.query.filter_by(email=email).first()
+        user=Vendor.query.filter_by(email=email).first()
 
         if user and check_password_hash(user.password,password):
             login_user(user)
@@ -202,33 +195,26 @@ def logout():
 
 
 
-@app.route('/addstudent',methods=['POST','GET'])
+@app.route('/addpet',methods=['POST','GET'])
 @login_required
-def addstudent():
-    dept=db.engine.execute("SELECT * FROM `department`")
+def addpet():
+    breed=db.engine.execute("SELECT * FROM `breed`")
     if request.method=="POST":
-        rollno=request.form.get('rollno')
-        sname=request.form.get('sname')
-        sem=request.form.get('sem')
+        pet_name=request.form.get('pet_name')
+        bid=request.form.get('breed')
         gender=request.form.get('gender')
-        branch=request.form.get('branch')
-        email=request.form.get('email')
-        num=request.form.get('num')
-        address=request.form.get('address')
-        query=db.engine.execute(f"INSERT INTO `student` (`rollno`,`sname`,`sem`,`gender`,`branch`,`email`,`number`,`address`) VALUES ('{rollno}','{sname}','{sem}','{gender}','{branch}','{email}','{num}','{address}')")
+        age=request.form.get('age')
+        weight=request.form.get('weight')
+        height=request.form.get('height')
+        description=request.form.get('description')
+        query=db.engine.execute(f"INSERT INTO `pet` (`pet_name`,`bid`,`gender`,`age`,`weight`,`height`,`description`) VALUES ('{pet_name}',{bid},'{gender}',{age},{weight},{height},'{description}')")
     
 
-        flash("Student Details Added","info")
+        flash("Pet Details Added","info")
 
 
-    return render_template('student.html',dept=dept)
-@app.route('/test')
-def test():
-    try:
-        Test.query.all()
-        return 'My database is Connected'
-    except:
-        return 'My db is not Connected'
+    return render_template('pet.html',breed=breed)
+
 
 
 app.run(debug=True)    

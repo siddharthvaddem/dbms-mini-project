@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}
-Add Attendance
+Add Vaccine Details
 {% endblock title %}
 
 
 
 {% block body %}
- <h3 class="text-center" style="margin-top: 100px;"><span>Add Attendance Details</span> </h3>
+ <h3 class="text-center" style="margin-top: 100px;"><span>Add Vaccine Details</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -28,24 +28,24 @@ Add Attendance
 <div class="col-md-4"></div>
 <div class="col-md-4">
 
-<form action="/addattendance" method="post">
+<form action="/addvaccine" method="post">
 
 <div class="form-group">                          
-<select class="form-control" id="rollno" name="rollno"  required>
-        <option selected>Select RollNo</option>
+<select class="form-control" id="pid" name="pid"  required>
+        <option selected>Select Pet ID</option>
         {% for r in query  %}
-        <option value="{{r.rollno}}">{{r.rollno}}</option>
+        <option value="{{r.pid}}">Id is {{r.pid}} , Name is {{r.pet_name}}</option>
         {% endfor %}
       </select>
  </div>
 <br>
 
 <div class="form-group">
-<label for="attendance">Attendance Percentage</label>
-<input type="number" class="form-control" name="attend" id="attend">
+<label for="vaccine">Last Vaccine Date</label>
+<input type="date" class="form-control" name="vaccine_date" id="vaccine_date">
 </div>
 <br>
-  <button type="submit" class="btn  btn-sm btn-block text-white" style="background-color: #428af5; border: none;">Add Attendance</button>
+  <button type="submit" class="btn  btn-sm btn-block text-white" style="background-color: #428af5; border: none;">Add Details</button>
 </form>
 <br>
 <br>

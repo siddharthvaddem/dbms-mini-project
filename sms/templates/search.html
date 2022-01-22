@@ -6,7 +6,7 @@ Search
 
 
 {% block body %}
- <h3 class="text-center" style="margin-top: 100px;"><span>Search Your Details</span> </h3>
+ <h3 class="text-center" style="margin-top: 100px;"><span>Search Pet Details</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -31,11 +31,10 @@ Search
 
 
 <div class="form-group">
-<label for="attendance">Enter Your Roll Number</label>
-<input type="text" class="form-control" name="roll" id="roll" placeholder="Use Small Letter">
+<label for="pet_id">Enter Your Pet ID</label>
+<input type="number" class="form-control" name="pid" id="pid">
 </div>
 <br>
-
   <button type="submit" class="btn btn-sm btn-block text-white" style="background-color: #428af5; border: none;">Search</button>
 </form>
 <br>
@@ -47,21 +46,21 @@ Search
 <div class="col-md-8">
 {% if bio %}
 <br>
-<h3>Your Details</h3>
+<h3>Pet details </h3>
  <hr>
- <li>Roll No : {{bio.rollno}}</li>
+ <li>Pet ID : {{bio.pid}}</li>
 
- <li>Name    : {{bio.sname}}</li>
-  <li>Sem   : {{bio.sem}}</li>
+  <li>Pet Name    : {{bio.pet_name}}</li>
+  <li>Age   : {{bio.age}}</li>
   <li>Gender   : {{bio.gender}}</li>
-  <li>Branch  : {{bio.branch}}</li>
-  <li>Email  : {{bio.email}}</li>
-  <li>Number  : {{bio.number}}</li>
-  <li>Address  : {{bio.address}}</li>
+  <li>Height  : {{bio.height}}</li>
+  <li>Weight  : {{bio.weight}}</li>
+  <li>Description  : {{bio.description}}</li>
+  
   <hr>
-  <h3>Attendance Status</h3>
+  <h3>Vaccination Status</h3>
   <hr>
-  <li>Attendance : {{attend.attendance}}</li>
+  <li>Last vaccinated date : {{vaccine.vaccine_date}}</li>
 <br><br>
 {% else %}
 No such results

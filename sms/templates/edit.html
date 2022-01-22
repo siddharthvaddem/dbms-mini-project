@@ -10,10 +10,10 @@
 
     <title>Edit</title>
   </head>
-<body class="bg-danger">
+<body>
 
 
- <h3 class="text-center"><span>Edit Student Details</span> </h3>
+ <h3 class="text-center"><span>Edit Pet Details</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -35,26 +35,17 @@
 <div class="col-md-4"></div>
 <div class="col-md-4">
 
-<form action="/edit/{{posts.id}}" method="post">
+<form action="/edit/{{posts.pid}}" method="post">
 <div class="form-group">
 
-<label for="rollno">Roll Number</label>
-<input type="text" class="form-control" name="rollno" id="rollno" value={{posts.rollno}} >
-</div>
-<br>
 <div class="form-group">
 
-<label for="sname">Student Name</label>
-<input type="text" class="form-control" name="sname" id="sname" value={{posts.sname}} >
+<label for="pet_name">Pet Name</label>
+<input type="text" class="form-control" name="pet_name" id="pet_name" value={{posts.pet_name}} >
 </div>
 <br>
-<div class="form-group">
-
-<label for="sem">Sem</label>
-<input type="number" class="form-control" name="sem" id="sem" value={{posts.sem}} >
-</div>
-<br>
-<div class="form-group">                          
+<div class="form-group">    
+  <label for="gender">Gender</label>                      
 <select  class="form-control" id="gender" name="gender"   required>
         <option selected>{{posts.gender}}</option>
     
@@ -65,34 +56,43 @@
  </div>
 <br>
 
-<div class="form-group">                          
-<select class="form-control" id="branch" name="branch"   required>
-        <option selected>{{posts.branch}}</option>
-        {% for d in dept  %}
-        <option value="{{d.branch}}">{{d.branch}}</option>
+<div class="form-group">  
+  <label for="breed">Breed</label>                             
+<select class="form-control" id="breed" name="breed"   required>
+        {% for br in breed  %}
+          {% if br.bid == posts.bid %}
+            <option selected value="{{br.bid}}">{{br.breed_name}}</option>
+          {% endif %}
+          <option value="{{br.bid}}">{{br.breed_name}}</option>
         {% endfor %}
+        
       </select>
  </div>
 <br>
 <div class="form-group">
-
-<label for="email">Email</label>
-<input type="email" class="form-control" name="email" id="email" value={{posts.email}} >
+  <label for="age">Age</label>
+  <input type="number" class="form-control" name="age" id="age" value={{posts.age}} >
 </div>
 <br>
 <div class="form-group">
-<label for="num">Phone Number</label>
-<input type="number" class="form-control" name="num" id="num" value={{posts.number}} >
+
+<label for="weight">Weight</label>
+<input type="number" class="form-control" name="weight" id="weight" value={{posts.weight}} >
+</div>
+<br>
+<div class="form-group">
+<label for="height">Height</label>
+<input type="number" class="form-control" name="height" id="height" value={{posts.height}} >
 </div>
 <br>
 
 <div class="form-group">
-<label for="address">Address</label>
-<input type="text"class="form-control" name="address" id="address" value={{posts.address}}>
+<label for="description">Description</label>
+<input type="text"class="form-control" name="description" id="description" value={{posts.description}}>
 </div>
 <br>
   
-  <button type="submit" class="btn btn-light btn-sm btn-block">Submit Record</button>
+  <button type="submit" class="btn btn-light btn-sm btn-block">Submit</button>
 </form>
 <br>
 <br>

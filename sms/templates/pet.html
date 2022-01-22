@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}
-Add Students
+Add Pets
 {% endblock title %}
 
 
 
 {% block body %}
- <h3 class="text-center" style="margin-top: 100px;"><span>Add Student Details</span> </h3>
+ <h3 class="text-center" style="margin-top: 100px;"><span>Add Pet Details</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -23,20 +23,10 @@ Add Students
   <div class="row">
     <div class="col-md-4"></div>
     <div class="col-md-4">
-      <form action="/addstudent" method="post">
+      <form action="/addpet" method="post">
         <div class="form-group">
-          <label for="rollno">Roll Number</label>
-          <input type="text" class="form-control" name="rollno" id="rollno">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="sname">Student Name</label>
-          <input type="text" class="form-control" name="sname" id="sname">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="sem">Sem</label>
-          <input type="number" class="form-control" name="sem" id="sem">
+          <label for="petname">Pet Name</label>
+          <input type="text" class="form-control" name="pet_name" id="pet_name">
         </div>
         <br>
         <div class="form-group">                          
@@ -47,28 +37,33 @@ Add Students
           </select>
         </div>
         <br>
+        <div class="form-group">
+          <label for="sname">Age</label>
+          <input type="text" class="form-control" name="age" id="age">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="sem">Height</label>
+          <input type="number" class="form-control" name="height" id="height">
+        </div>
+        <br>
+        <div class="form-group">
+          <label for="weight">Weight</label>
+          <input type="number" class="form-control" name="weight" id="weight">
+        </div>
+        <br>
         <div class="form-group">                          
-          <select class="form-control" id="branch" name="branch"  required>
-            <option selected>Select Branch</option>
-            {% for d in dept  %}
-              <option value="{{d.branch}}">{{d.branch}}</option>
+          <select class="form-control" id="breed" name="breed"  required>
+            <option selected>Select Breed</option>
+            {% for br in breed  %}
+              <option value="{{br.bid}}">{{br.breed_name}}</option>
             {% endfor %}
           </select>
         </div>
         <br>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" class="form-control" name="email" id="email">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="num">Phone Number</label>
-          <input type="number" class="form-control" name="num" id="num">
-        </div>
-        <br>
-        <div class="form-group">
-          <label for="address">Address</label>
-          <textarea class="form-control" name="address" id="address"></textarea>
+          <label for="description">Description</label>
+          <textarea class="form-control" name="description" id="description"></textarea>
         </div>
         <br>
         <button type="submit" class="btn btn-md btn-block text-white"  style="background-color: #428af5; border: none;">Add Record</button>

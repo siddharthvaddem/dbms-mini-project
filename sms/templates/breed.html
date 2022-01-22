@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}
-Add Department
+Add Breed
 {% endblock title %}
 
 
 
 {% block body %}
- <h3 class="text-center " style="margin-top: 100px;"><span>Add Department</span> </h3>
+ <h3 class="text-center " style="margin-top: 100px;"><span>Add Breed</span> </h3>
   
 {% with messages=get_flashed_messages(with_categories=true) %}
 {% if messages %}
@@ -28,16 +28,16 @@ Add Department
 <div class="col-md-4"></div>
 <div class="col-md-4">
 
-<form action="/department" method="post">
+<form action="/breed" method="post">
 
 
 <div class="form-group">
-<label for="dept">Enter Department</label>
-<input type="text" class="form-control" name="dept" id="dept">
+<label for="breed_name">Enter Breed Name</label>
+<input type="text" class="form-control" name="breed_name" id="breed_name">
 </div>
 <br>
 
-  <button type="submit" class="btn btn-sm btn-block text-white" style="background-color: #428af5; border: none;" >Add Department</button>
+  <button type="submit" class="btn btn-sm btn-block text-white" style="background-color: #428af5; border: none;" >Add Breed</button>
 </form>
 <br>
 <br>

@@ -36,7 +36,7 @@
 
       <div id="logo" class="pull-left mt-2">
 
-        <a href="/" class="scrollto" style="font-weight: bold;">SMS PORTAL</a>
+        <a href="/" class="scrollto" style="font-weight: bold;">Canine World</a>
       </div>
 
       <nav id="nav-menu-container">
@@ -44,11 +44,11 @@
           <li class="{% block home %}
           {% endblock home %}"><a href="/">Home</a></li>
          
-          <li><a href="/addstudent">Students</a></li>
-          <li><a href="/addattendance">Attendance</a></li>
-          <li><a href="/department">Department</a></li>
-          <li><a href="/triggers">Records</a></li>
-          <li><a href="/studentdetails">Student Details</a></li>
+          <li><a href="/addpet">Add Pet</a></li>
+          <li><a href="/addvaccine">Vaccine</a></li>
+          <li><a href="/breed">Breed</a></li>
+          <li><a href="/records">Records</a></li>
+          <li><a href="/petdetails">Pet Details</a></li>
           <li><a href="/search">Search</a></li>
           {% if current_user.is_authenticated  %}
             <li class="buy-tickets"><a href="">Welcome {{current_user.username}}</a></li>
